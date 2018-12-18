@@ -7,6 +7,9 @@ sudo apt-get upgrade -y
 sudo apt-get install python3-dev python-setuptools python3-pip python-pip -y
 sudo apt-get install build-essential git unzip -y
 
+# you need java for CoreNLP
+sudo apt-get install default-jre
+
 git clone https://github.com/tonghuikang/DrQA
 cd DrQA
 sudo pip3 install -r requirements.txt
