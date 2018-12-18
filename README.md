@@ -1,3 +1,41 @@
+# Installation notes
+
+```
+curl https://raw.githubusercontent.com/tonghuikang/DrQA/master/install.sh | sudo bash
+```
+
+Run script to install coreNLP and choose default options:
+```
+sudo ./install_corenlp.sh
+```
+
+Run script to download Wikipedia and the datasets. The size of files is zipped and unzipped files is 34GB, check your system storage for an estimate of time left.
+```
+sudo ./download.sh
+```
+
+
+### Test code
+Check that this runs in `python3` first
+```
+import drqa.tokenizers
+drqa.tokenizers.set_default('corenlp_classpath', './data/corenlp/*')
+from drqa.tokenizers import CoreNLPTokenizer
+tok = CoreNLPTokenizer()
+tok.tokenize('hello world').words()  # Should complete immediately
+
+import drqa.reader
+drqa.reader.set_default('model', './data/reader/multitask.mdl')
+reader = drqa.reader.Predictor()
+```
+
+### Answering Open-Domain questions
+This takes quite some time to load of the server, and it looks like it requires 48GB of memory:
+```
+export CLASSPATH=$CLASSPATH:data/corenlp/*
+python3 scripts/pipeline/interactive.py
+```
+
 # DrQA
 This is a PyTorch implementation of the DrQA system described in the ACL 2017 paper [Reading Wikipedia to Answer Open-Domain Questions](https://arxiv.org/abs/1704.00051).
 
